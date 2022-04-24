@@ -1,3 +1,10 @@
+## @file csvToIcs.py
+#
+# @brief this file converts TXT file to CSV
+#        Copyright 2022, Jodie Moh, All rights reserved.
+#
+# @author Jodie Moh
+
 import os, sys
 import fileIo
 import datetime
@@ -10,6 +17,8 @@ def parseScheduleTxt():
         start_dir = '~/Desktop/'
     msg = 'Please select the .txt file to be converted to .csv'
     scheduleTxt = easygui.fileopenbox(msg=msg, title="", default=expanduser(start_dir), filetypes=["*.txt"])
+    if(scheduleTxt[:4] != "txt"):
+        raise Exception
 
     classCode = ["CSC", "SEM"] #change to a list of class codes avail
     locationCode = ["NYP-", "NP-", "DV-", "RP-", "SP-", "TP-"]
@@ -120,4 +129,4 @@ def createCSVFile(data):
             for l in data:
                 f.write(l+"\n")
 
-createCSVFile(parseScheduleTxt())
+

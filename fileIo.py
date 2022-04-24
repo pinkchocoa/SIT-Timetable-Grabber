@@ -1,8 +1,9 @@
 ## @file fileIo.py
 #
 # @brief this file contains the general functions used for filo i/o purposes
+#        Copyright 2022, Jodie Moh, All rights reserved.
 #
-# @author Jodie
+# @author Jodie Moh
 #
 # @section libraries_main Libraries/Modules
 # - os standard library

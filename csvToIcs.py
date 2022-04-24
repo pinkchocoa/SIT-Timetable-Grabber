@@ -1,3 +1,10 @@
+## @file csvToIcs.py
+#
+# @brief this file converts CSV file to ICS
+#        Copyright 2022, Jodie Moh, All rights reserved.
+#
+# @author Jodie Moh
+
 from os.path import expanduser, isdir
 import datetime
 import pandas as pd
@@ -50,4 +57,3 @@ def parseIcsFromCsv():
     f.write(cal.to_ical())
     f.close()
 
-parseIcsFromCsv()

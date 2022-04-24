@@ -1,4 +1,7 @@
 # SIT Time Table Grabber
+* Please use Python 3.7 and above
+* **I do not have all the module/class codes, so please add them under `classCode` in settings.py if yours is not there before running!**
+
 1. Install requirements with `pip3 install -r requirements.txt`
 2. Run `sitTimeTableGrabber.py`
 3. Login to [IN4SIT](https://in4sit.singaporetech.edu.sg/) > `Course Management` > `My Weekly Schedule` > `List View`

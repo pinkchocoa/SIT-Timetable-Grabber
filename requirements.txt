@@ -1,0 +1,3 @@
+easygui==0.98.3
+pandas==1.4.1
+icalendar==4.0.9

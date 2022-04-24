@@ -24,7 +24,7 @@ def createFile(path):
     @param path file path
     """
     if not os.path.isfile(path):
-        write_file(path, '')
+        writeFile(path, '')
         #print("file created")
 
 # Create a new file

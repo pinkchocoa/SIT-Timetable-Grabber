@@ -11,8 +11,8 @@ fileName = "schedule.csv"
 scheduleTxt = "classSchedule.txt"
 
 def parseScheduleTxt(scheduleTxt):
-    classCode = "CSC" #change to a list of class codes avail
-    locationCode = "NYP" #change to a list of SIT campus locations
+    classCode = ["CSC", "SEM"] #change to a list of class codes avail
+    locationCode = ["NYP-", "NP-", "DV-", "RP-", "SP-", "TP-"]
     classTypes = ["Laboratory", "Lecture"] #add all class types
     classNum = ["P1", "P2", "P3", "ALL", "Q1"]
     timeCode = ["AM -", "PM -"]
@@ -69,9 +69,10 @@ def parseScheduleTxt(scheduleTxt):
     for x in listOfClass:
         if(x.strip() == ""):
             continue
-        if classCode in x:
-            module = x
-            continue
+        for y in classCode:
+            if y in x:
+                module = x
+                continue
         for y in classTypes:
             if y in x:
                 csvString["subject"] = csvString["subject"][:-1]
@@ -88,10 +89,6 @@ def parseScheduleTxt(scheduleTxt):
                 csvString["subject"] = module + " ("
                 csvString["subject"] += x + ")"
                 continue
-        if locationCode in x:
-            csvString["location"] = x
-            profName = True #after location is the professors name
-            continue
         if currentYear in x:
             dateSplit = x.split(" ")
             csvString["startDate"] = changeDateFormat(dateSplit[0])
@@ -108,6 +105,11 @@ def parseScheduleTxt(scheduleTxt):
                 csvString["description"] = "Professor(s): "
                 csvString["description"] += x.replace(",","")
             continue
+        for y in locationCode:
+            if y in x:
+                csvString["location"] = x
+                profName = True #after location is the professors name
+                break
     return csvList
 
 def createCSVFile(data, fileName):
@@ -118,7 +120,7 @@ def createCSVFile(data, fileName):
 def parseICSFromCSV(fileName):
     # Start calendar file
     cal = Calendar()
-    cal.add('prodid', '-//2021/22 Trimester 3 | Undergraduate | SIT//')
+    cal.add('prodid', '-//2021/22 Trimester 3 | Undergraduate | SIT | by pinkchocoa//')
     cal.add('version', '2.0')
 
     df = pd.read_csv(fileName)
@@ -150,4 +152,4 @@ csvList = parseScheduleTxt(scheduleTxt)
 print("Parsing Text.")
 createCSVFile(csvList, fileName)
 print("Created CSV.")
-parseICSFromCSV(fileName)
+#parseICSFromCSV(fileName)

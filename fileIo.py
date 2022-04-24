@@ -11,7 +11,7 @@
 # Imports
 import os
 
-def create_project_dir(directory):
+def createProjDir(directory):
     """! This method creates a directory with the user input
     @param directory directory path
     """
@@ -19,7 +19,7 @@ def create_project_dir(directory):
         #print('Creating directory ' + directory)
         os.makedirs(directory)
 
-def create_file(path):
+def createFile(path):
     """! This method creates a file with the user input
     @param path file path
     """
@@ -28,7 +28,7 @@ def create_file(path):
         #print("file created")
 
 # Create a new file
-def write_file(path, data):
+def writeFile(path, data):
     """! This method writes to a file with the user input
     @param path file path
     @param data data to be written to the file
@@ -38,7 +38,7 @@ def write_file(path, data):
 
 
 # Add data onto an existing file
-def append_to_file(path, data):
+def appendToFile(path, data):
     """! This method writes to an existing file with the user input
     @param path file path
     @param data data to be written to the file
@@ -48,7 +48,7 @@ def append_to_file(path, data):
 
 
 # Delete the contents of a file
-def delete_file_contents(path):
+def deleteFileContents(path):
     """! This method deletes the contents of a file
     @param path file path
     """
@@ -57,7 +57,7 @@ def delete_file_contents(path):
 
 
 # Read a file and convert each line to items
-def file_to_list(file_name):
+def fileToList(file_name):
     """! This method reads a file and convert each line to items
     @param file_name file name
     @return list with the file data
@@ -70,7 +70,7 @@ def file_to_list(file_name):
 
 
 # Iterate through a list, each item will be a line in a file
-def list_to_file(data, file_name):
+def listToFile(data, file_name):
     """! This method iterate through a list, each item will be a line in a file
     @param data data to be entered into the file
     @param file_name file name

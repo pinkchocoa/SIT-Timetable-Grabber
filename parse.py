@@ -1,4 +1,5 @@
 import os, sys
+from os.path import expanduser
 import fileIo
 import datetime
 import pandas as pd
@@ -21,7 +22,7 @@ def parseScheduleTxt(scheduleTxt):
     currentYear = date.strftime("%Y")
 
     #read file
-    listOfClass = fileIo.file_to_list(scheduleTxt)
+    listOfClass = fileIo.fileToList(scheduleTxt)
 
     csvList = ["Subject,Start Date,Start Time,End Date,End Time,Location,Description"]
     # Subject - class name + type
@@ -109,44 +110,44 @@ def parseScheduleTxt(scheduleTxt):
             continue
     return csvList
 
-
 def createCSVFile(data, fileName):
-    fileIo.create_file(fileName)
-    fileIo.delete_file_contents(fileName)
-    fileIo.list_to_file(data, fileName)
+    fileIo.createFile(fileName)
+    fileIo.deleteFileContents(fileName)
+    fileIo.listToFile(data, fileName)
 
+def parseICSFromCSV(fileName):
+    # Start calendar file
+    cal = Calendar()
+    cal.add('prodid', '-//2021/22 Trimester 3 | Undergraduate | SIT//')
+    cal.add('version', '2.0')
+
+    df = pd.read_csv(fileName)
+    for index, row in df.iterrows():
+        event = Event()
+        event.add('summary', row["Subject"])
+
+        timeStamp = row["Start Date"] + " " + row["Start Time"]
+        timeStamp = datetime.datetime.strptime(timeStamp, "%m/%d/%Y %I:%M%p")
+        event.add('dtstart', timeStamp)
+        timeStamp = row["End Date"] + " " + row["End Time"]
+        timeStamp = datetime.datetime.strptime(timeStamp, "%m/%d/%Y %I:%M%p")
+        event.add('dtend', timeStamp)
+
+        event.add('description', row['Description'])
+        event.add('location', row['Location'])
+        event.add('dtstamp', datetime.datetime.replace( datetime.datetime.now(), tzinfo=LocalTimezone() ))
+        event['uid'] = str(randint(1,10**30)) + datetime.datetime.now().strftime('%Y%m%dT%H%M%S')
+
+        cal.add_component(event)
+
+    # Write final .ics file to same directory as input file.
+    f = open(easygui.filesavebox(msg='Save .ics File', title='', default=expanduser('~/') + 'calendar.ics', filetypes=['*.ics']), 'wb')
+    f.write(cal.to_ical())
+    f.close()
 
 
 csvList = parseScheduleTxt(scheduleTxt)
-print("conversion completed")
+print("Parsing Text.")
 createCSVFile(csvList, fileName)
-print("csv created")
-
-
-colNames = ["Subject,Start Date,Start Time,End Date,End Time,Location,Description"]
-df = pd.read_csv(fileName, names=colNames)
-for index, row in df.iterrows():
-    print(row['Subject'])
-
-# # Start calendar file
-# cal = Calendar()
-# cal.add('prodid', '-//2021/22 Trimester 3 | Undergraduate | SIT//')
-# cal.add('version', '2.0')
-
-# event = Event()
-# event.add('description', row['Description'])
-
-# event = Event()
-# event.add('summary', 'Python meeting about calendaring')
-# event.add('dtstart', datetime(2005,4,4,8,0,0,tzinfo=UTC))
-# event.add('dtend', datetime(2005,4,4,10,0,0,tzinfo=UTC))
-# event.add('description', row['Description'])
-# event.add('location', row['Location'])
-# event.add('dtstamp', datetime.replace( datetime.now(), tzinfo=LocalTimezone() ))
-# event['uid'] = str(randint(1,10**30)) + datetime.now().strftime('%Y%m%dT%H%M%S') + '___n8henrie.com'
-
-# cal.add_component(event)
-# # Write final .ics file to same directory as input file.
-# f = open(easygui.filesavebox(msg='Save .ics File', title='', default=expanduser('~/') + 'calendar.ics', filetypes=['*.ics']), 'wb')
-# f.write(cal.to_ical())
-# f.close()
+print("Created CSV.")
+parseICSFromCSV(fileName)

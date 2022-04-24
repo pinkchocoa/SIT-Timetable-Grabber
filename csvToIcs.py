@@ -14,7 +14,7 @@ from random import randint
 # Location
 # Description
 
-def parseICSFromCSV():
+def parseIcsFromCsv():
     start_dir = '~/'
     if isdir(expanduser("~/Desktop")):
         start_dir = '~/Desktop/'
@@ -50,4 +50,4 @@ def parseICSFromCSV():
     f.write(cal.to_ical())
     f.close()
 
-parseICSFromCSV()
+parseIcsFromCsv()

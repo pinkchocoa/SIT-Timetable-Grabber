@@ -1,4 +1,4 @@
-## @file csvToIcs.py
+## @file sitTimeTableGrabber.py
 #
 # @brief GUI with instructions to grab timetable from in4sit
 #        Copyright 2022, Jodie Moh, All rights reserved.
@@ -27,14 +27,18 @@ def main():
     try:
         data = parseScheduleTxt()
     except Exception as e:
+        print(e)
         message = "An error has occured, did you select the right text file?"
         easygui.msgbox(message, title)
+        return
 
     try:
         createCSVFile(data)
     except Exception as e:
+        print(e)
         message = "An error has occured, csv file cannot be created. \nPlease ensure that the .txt file used is valid."
         easygui.msgbox(message, title)
+        return
 
     message = "Continue to convert the created .csv file into .ics format."
     output = easygui.buttonbox(message, title, ["Exit", continueText])
@@ -44,8 +48,10 @@ def main():
         try:
             parseIcsFromCsv()
         except Exception as e:
+            print(e)
             message = "An error has occured, ical file cannot be created. \nPlease ensure that the .txt or .csv file used is valid."
             easygui.msgbox(message, title)
+            return
     
     message = "Open the .ical file in your calendar application to import!"
     output = easygui.msgbox(message, title, "Bye!")

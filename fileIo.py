@@ -52,7 +52,7 @@ def deleteFileContents(path):
     """! This method deletes the contents of a file
     @param path file path
     """
-    if  os.path.isfile(path):
+    if os.path.isfile(path):
         open(path, 'w', encoding="utf-8").close()
 
 

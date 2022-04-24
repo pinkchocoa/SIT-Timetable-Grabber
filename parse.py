@@ -1,11 +1,16 @@
 import os, sys
 import fileIo
 import datetime
+from os.path import expanduser, isdir
+import easygui
 
-fileName = "schedule.csv"
-scheduleTxt = "classSchedule.txt"
+def parseScheduleTxt():
+    start_dir = '~/'
+    if isdir(expanduser("~/Desktop")):
+        start_dir = '~/Desktop/'
+    msg = 'Please select the .txt file to be converted to .csv'
+    scheduleTxt = easygui.fileopenbox(msg=msg, title="", default=expanduser(start_dir), filetypes=["*.txt"])
 
-def parseScheduleTxt(scheduleTxt):
     classCode = ["CSC", "SEM"] #change to a list of class codes avail
     locationCode = ["NYP-", "NP-", "DV-", "RP-", "SP-", "TP-"]
     classTypes = ["Laboratory", "Lecture"] #add all class types
@@ -107,13 +112,13 @@ def parseScheduleTxt(scheduleTxt):
                 break
     return csvList
 
-def createCSVFile(data, fileName):
-    fileIo.createFile(fileName)
-    fileIo.deleteFileContents(fileName)
-    fileIo.listToFile(data, fileName)
+def createCSVFile(data):
+    # Write final .ics file to same directory as input file.
+    fileName = easygui.filesavebox(msg='Save .csv File', title='', default=expanduser('~/') + 'calendar.csv', filetypes=['*.csv'])
+    if(fileName is not None):
+        with open(fileName, "w", encoding="utf-8") as f:
+            for l in data:
+                f.write(l+"\n")
 
-csvList = parseScheduleTxt(scheduleTxt)
-print("Parsing Text.")
-createCSVFile(csvList, fileName)
-print("Created CSV.")
+createCSVFile(parseScheduleTxt())
 

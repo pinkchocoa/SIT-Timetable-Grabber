@@ -121,4 +121,3 @@ def createCSVFile(data):
                 f.write(l+"\n")
 
 createCSVFile(parseScheduleTxt())
-

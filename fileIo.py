@@ -56,11 +56,11 @@ def delete_file_contents(path):
         open(path, 'w', encoding="utf-8").close()
 
 
-# Read a file and convert each line to set items
+# Read a file and convert each line to items
 def file_to_list(file_name):
-    """! This method reads a file and convert each line to set items
+    """! This method reads a file and convert each line to items
     @param file_name file name
-    @return set with the file data
+    @return list with the file data
     """
     results = list()
     with open(file_name, 'rt', encoding="utf-8") as f:
@@ -69,13 +69,12 @@ def file_to_list(file_name):
     return results
 
 
-# Iterate through a set, each item will be a line in a file
-def set_to_file(links, file_name):
-    """! This method iterate through a set, each item will be a line in a file
-    @param links a set of data to be entered into the file
+# Iterate through a list, each item will be a line in a file
+def list_to_file(data, file_name):
+    """! This method iterate through a list, each item will be a line in a file
+    @param data data to be entered into the file
     @param file_name file name
     """
     with open(file_name, "w", encoding="utf-8") as f: #added encoding for UnicodeEncodeError 
-        for l in sorted(links):
-            url = l.replace(" ","") # remove spaces
+        for l in data:
             f.write(l+"\n")

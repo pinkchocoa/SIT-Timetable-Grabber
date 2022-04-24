@@ -1,5 +1,5 @@
 # SIT Time Table Grabber
-* Please use Python 3.7 and above, i'm on Python 3.9
+* Please use Python 3.7 and above, i'm on Python 3.9, with Tkinter v8.6.9
 * **I do not have all the module/class codes, so please add them under `classCode` in `settings.py` if yours is not there before running!**
 
 1. Install requirements with `pip3 install -r requirements.txt`

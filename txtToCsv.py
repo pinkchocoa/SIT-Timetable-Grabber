@@ -1,4 +1,4 @@
-## @file csvToIcs.py
+## @file txtToCsv.py
 #
 # @brief this file converts TXT file to CSV
 #        Copyright 2022, Jodie Moh, All rights reserved.
@@ -10,20 +10,21 @@ import fileIo
 import datetime
 from os.path import expanduser, isdir
 import easygui
+import settings
 
 def parseScheduleTxt():
+    classCode = settings.classCode
+    locationCode = settings.locationCode
+    classTypes = settings.classTypes
+    classNum = settings.classNum
     start_dir = '~/'
     if isdir(expanduser("~/Desktop")):
         start_dir = '~/Desktop/'
     msg = 'Please select the .txt file to be converted to .csv'
     scheduleTxt = easygui.fileopenbox(msg=msg, title="", default=expanduser(start_dir), filetypes=["*.txt"])
-    if(scheduleTxt[:4] != "txt"):
+    if(scheduleTxt[-3:] != "txt"):
         raise Exception
 
-    classCode = ["CSC", "SEM"] #change to a list of class codes avail
-    locationCode = ["NYP-", "NP-", "DV-", "RP-", "SP-", "TP-"]
-    classTypes = ["Laboratory", "Lecture"] #add all class types
-    classNum = ["P1", "P2", "P3", "ALL", "Q1"]
     timeCode = ["AM -", "PM -"]
     newClass = "Class Nbr"
     currentDateTime = datetime.datetime.now()
@@ -74,7 +75,7 @@ def parseScheduleTxt():
         return newDate
 
     profName = False
-
+    module=""
     for x in listOfClass:
         if(x.strip() == ""):
             continue

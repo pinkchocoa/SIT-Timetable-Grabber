@@ -8,6 +8,8 @@
 4. Copy and paste the tables into a txt file <br>
 ![Example Table](https://user-images.githubusercontent.com/46685749/164976200-03a5c508-dc16-4936-bb99-90ce9d03c9a9.png)
 
+5. Resultant .ics file that you can import into windows/android/ios calendars
+![image](https://github.com/pinkchocoa/SIT-Timetable-Grabber/assets/46685749/72701d4a-0fa0-4209-87c7-6f80bef0ad9a)
 
  
 ![image](https://user-images.githubusercontent.com/46685749/164983678-296ab05c-0e53-4cf6-9a6a-a329e98081a4.png)
